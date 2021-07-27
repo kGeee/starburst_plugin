@@ -1,6 +1,6 @@
 from airflow.plugins_manager import AirflowPlugin
-from operators.trino_to_s3_operator import TrinoToS3Operator
-from hooks.trino_hook import TrinoHook
+from starburst_plugin.operators.trino_to_s3_operator import TrinoToS3Operator
+from starburst_plugin.hooks.trino_hook import TrinoHook
 
 
 class StarburstPlugin(AirflowPlugin):

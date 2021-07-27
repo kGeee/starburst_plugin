@@ -1,7 +1,8 @@
 from airflow.models import BaseOperator, SkipMixin
 from airflow.utils.decorators import apply_defaults
-
-from hooks.trino_hook import TrinoHook
+import sys
+sys.path.append('../')
+from starburst_plugin.hooks.trino_hook import TrinoHook
 
 class TrinoToS3Operator(BaseOperator, SkipMixin):
 
