@@ -1,11 +1,11 @@
 from airflow.plugins_manager import AirflowPlugin
-from starburst_plugin.operators.trino_to_s3_operator import TrinoToS3Operator
+from starburst_plugin.operators.TrinoOperator import TrinoOperator
 from starburst_plugin.hooks.trino_hook import TrinoHook
 
 
 class StarburstPlugin(AirflowPlugin):
     name = "starburst_plugin"
-    operators = [TrinoToS3Operator]
+    operators = [TrinoOperator]
     hooks = [TrinoHook]
     sensors = []
     executors = []

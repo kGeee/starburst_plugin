@@ -89,7 +89,7 @@ class TrinoHook(DbApiHook):
             http_scheme=db.extra_dejson.get('protocol', 'http'),
             catalog=db.extra_dejson.get('catalog', 'hive'),
             schema=db.schema,
-            auth=auth,
+            auth=auth,                                                                                           
             isolation_level=self.get_isolation_level(),  # type: ignore[func-returns-value]
         )
         if extra.get('verify') is not None:
