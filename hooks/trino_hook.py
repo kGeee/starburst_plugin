@@ -53,7 +53,7 @@ class TrinoHook(DbApiHook):
     """
 
     conn_name_attr = 'trino_conn_id'
-    default_conn_name = 'trino_default'
+    default_conn_name = 'trino'
     conn_type = 'trino'
     hook_name = 'Trino'
 
@@ -80,6 +80,10 @@ class TrinoHook(DbApiHook):
                 delegate=_boolify(extra.get('kerberos__delegate', False)),
                 ca_bundle=extra.get('kerberos__ca_bundle'),
             )
+        elif extra.get('auth') == 'jwt':
+            JWT_TOKEN = extra.get('jwt_token', None)
+            if JWT_TOKEN:
+                auth = trino.auth.JWTAuthentication(JWT_TOKEN)
 
         trino_conn = trino.dbapi.connect(
             host=db.host,
