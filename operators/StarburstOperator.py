@@ -1,6 +1,7 @@
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 import sys
+import logging
 sys.path.append('../')
 from starburst_plugin.hooks.trino_hook import TrinoHook
 
@@ -22,18 +23,31 @@ class StarburstOperator(BaseOperator):
     @apply_defaults
     def __init__(
             self,
+            sql,
             starburst_conn_id: str = 'trino',
-            sql: str = 'show catalogs;',
             *args,
             **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.sql = sql
         self.starburst_conn_id = starburst_conn_id
-        self.hook = None
 
-    def execute(self, context): 
-        print("Running:{}".format(self.sql))     
-        if not self.hook:
-            self.hook = TrinoHook()
-            connection = self.hook.get_connection(self.starburst_conn_id)
-            self.hook.get_records(self.sql)
+    def get_hook(self) -> TrinoHook:
+        """
+        Create and return TrinoHook
+        :return: TrinoHook instance
+        """
+        return TrinoHook()
+
+    def execute(self, context) -> None: 
+        """
+        Execute query against Starburst Enterprise Platform
+        :return: None
+        """
+        logging.info(f"Running SQL :{self.sql}")     
+        hook = self.get_hook()
+        connection = hook.get_connection(self.starburst_conn_id)
+        #self.hook.run(self.sql)
+        hook.run(self.sql)
+        
+
+            
