@@ -50,12 +50,12 @@ class TrinoHook(DbApiHook):
     >>> sql = "SELECT count(1) AS num FROM airflow.static_babynames"
     >>> ph.get_records(sql)
     Hook to interact with Starburst
-    The hook requires the starburst_conn_id to be set with the host, login, and 
-    password fields. 
+    The hook requires the starburst_conn_id to be set with the host, login, and
+    password fields.
     """
 
     conn_name_attr = 'starburst_conn_id'
-    default_conn_name = 'starburst_conn_id'
+    default_conn_name = 'trino_default'
     conn_type = 'starburst'
     hook_name = 'Starburst'
 
@@ -95,7 +95,7 @@ class TrinoHook(DbApiHook):
             http_scheme=db.extra_dejson.get('protocol', 'http'),
             catalog=db.extra_dejson.get('catalog', 'hive'),
             schema=db.schema,
-            auth=auth,                                                                                           
+            auth=auth,
             isolation_level=self.get_isolation_level(),  # type: ignore[func-returns-value]
         )
         if extra.get('verify') is not None:
