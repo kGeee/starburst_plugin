@@ -55,7 +55,7 @@ class TestTrinoHookConn(unittest.TestCase):
         mock_basic_auth.assert_called_once_with('login', 'password')
         assert mock_connect.return_value == conn
 
-    @patch('airflow.providers.starburst.hooks.trino.TrinoHook.get_connection')
+    @patch('starburst_plugin.hooks.trino.TrinoHook.get_connection')
     def test_get_conn_invalid_auth(self, mock_get_connection):
         mock_get_connection.return_value = Connection(
             login='login',
@@ -69,9 +69,9 @@ class TestTrinoHookConn(unittest.TestCase):
         ):
             TrinoHook().get_conn()
 
-    @patch('airflow.providers.starburst.hooks.trino.trino.auth.KerberosAuthentication')
-    @patch('airflow.providers.starburst.hooks.trino.trino.dbapi.connect')
-    @patch('airflow.providers.starburst.hooks.trino.TrinoHook.get_connection')
+    @patch('starburst_plugin.hooks.trino.trino.auth.KerberosAuthentication')
+    @patch('starburst_plugin.hooks.trino.trino.dbapi.connect')
+    @patch('starburst_plugin.hooks.trino.TrinoHook.get_connection')
     def test_get_conn_kerberos_auth(self, mock_get_connection, mock_connect, mock_auth):
         mock_get_connection.return_value = Connection(
             login='login',
@@ -128,8 +128,8 @@ class TestTrinoHookConn(unittest.TestCase):
         ]
     )
     def test_get_conn_verify(self, current_verify, expected_verify):
-        patcher_connect = patch('airflow.providers.starburst.hooks.trino.trino.dbapi.connect')
-        patcher_get_connections = patch('airflow.providers.starburst.hooks.trino.TrinoHook.get_connection')
+        patcher_connect = patch('starburst_plugin.hooks.trino.trino.dbapi.connect')
+        patcher_get_connections = patch('starburst_plugin.hooks.trino.TrinoHook.get_connection')
 
         with patcher_connect as mock_connect, patcher_get_connections as mock_get_connection:
             mock_get_connection.return_value = Connection(

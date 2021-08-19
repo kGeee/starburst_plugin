@@ -55,7 +55,7 @@ class TrinoHook(DbApiHook):
     """
 
     conn_name_attr = 'starburst_conn_id'
-    default_conn_name = 'trino_default'
+    default_conn_name = 'starburst_default'
     conn_type = 'starburst'
     hook_name = 'Starburst'
 

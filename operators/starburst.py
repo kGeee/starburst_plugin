@@ -1,7 +1,7 @@
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 import logging
-from hooks.trino import TrinoHook
+from starburst_plugin.hooks.trino import TrinoHook
 
 class StarburstOperator(BaseOperator):
     """
@@ -43,8 +43,6 @@ class StarburstOperator(BaseOperator):
         """
         logging.info(f"Running SQL :{self.sql}")
         hook = self.get_hook()
-        connection = hook.get_connection(self.starburst_conn_id)
-        #self.hook.run(self.sql)
         hook.run(self.sql)
 
 
