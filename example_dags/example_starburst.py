@@ -76,7 +76,7 @@ with DAG(
         dag=dag
     )
 
-    # [END howto_operator_snowflake]
+    # [END howto_operator_starburst
 
     # [END dag]
 
