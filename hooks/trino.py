@@ -163,9 +163,24 @@ class TrinoHook(DbApiHook):
         if isinstance(hql, str):
             split_statements = hql.split(';')
             hql = [hql_string for hql_string in split_statements if hql_string]
+        
+        cur = self.get_cursor()
+        query_info = list()
         for statement in hql:
-            super().run(sql=statement, parameters=parameters)
+            query = list()
+            try:
+                cur.execute(statement, parameters)
+            except DatabaseError as e:
+                raise TrinoException(e)
+            
+            for row in cur:
+                query.append(row)
+            query_info.append(query)
 
+            if not autocommit:
+                cur.commit()
+                
+        return query_info
 
     def insert_rows(
         self,
