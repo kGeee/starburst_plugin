@@ -40,3 +40,8 @@ hooks:
 
 hook-class-names:
   - airflow.providers.starburst.hooks.trino.TrinoHook
+
+operators:
+  - integration-name: Starburst
+    python-modules:
+      - airflow.providers.starburst.operators.starburst
