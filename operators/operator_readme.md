@@ -22,10 +22,10 @@ The Starburst S3 operator is responsible for executing queries against the Starb
 ## Initializing the environment
 
 As per Airflow instructions located: <https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html>
-
-1. Create required directories : `mkdir -p ./dags ./logs ./plugins ./queries`
-2. Create Docker environment variable file `echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env`
-3. Mount the queries directory in your docker-compose.yaml `./queries:/opt/airflow/queries`
+1. Download the airflow docker-compose file `curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.1.3/docker-compose.yaml'`
+2. Create required directories : `mkdir -p ./dags ./logs ./plugins ./queries`
+3. Create Docker environment variable file `echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env`
+4. Mount the queries directory in your docker-compose.yaml `./queries:/opt/airflow/queries`
     
 
 For the initial run you must first initialize a fresh instance of airflow via `docker-compose up airflow-init'
