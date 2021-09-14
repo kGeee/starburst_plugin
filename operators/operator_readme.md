@@ -28,7 +28,7 @@ As per Airflow instructions located: <https://airflow.apache.org/docs/apache-air
 4. Mount the queries directory in your docker-compose.yaml `./queries:/opt/airflow/queries`
     
 
-For the initial run you must first initialize a fresh instance of airflow via `docker-compose up airflow-init'
+For the initial run you must first initialize a fresh instance of airflow via `docker-compose up airflow-init`
 
 Once completed you should see a similar message
 
